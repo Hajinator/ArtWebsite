@@ -18,10 +18,15 @@ body {
     justify-content: flex-start;
 }
 
-/*Header and footer styling*/
+.dropdown {
+    position: relative;
+}
+
 li,
 a,
 footer,
+button,
+h5,
 main {
     font-family: 'Playfair Display', serif;
     font-weight: 500;
@@ -30,36 +35,34 @@ main {
     text-decoration: none;
 }
 
-.main-content {
-    padding: 20px;
-    max-width: 1000px;
-    text-align: center;
-    color: rgb(255, 255, 255);
-    margin: 75px auto 0 auto;
-}
-
-
-header {
+/* Flex container for filter controls */
+.filter-controls {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    align-items: center; /* Center vertically */
+    width: 100%; /* Ensure it takes full width */
+    padding: 0 300px;
+
 }
 
-
-header .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 30px 15px;
+.input-group {
+    margin-left: auto; /* Push the search bar to the right */
 }
 
-footer {
-    font-size: 10px;
-    padding: 10px;
-    margin-top: auto;
-    text-align: left;
-    width: 100%;
+/* Input field styling */
+.input-group .form-control {
+    font-family: 'Playfair Display', serif; /* Use the same font as other elements */
+    font-weight: 500; /* Match the font weight */
+    font-size: 17px; /* Match the font size */
+
 }
+
+/* Optional: Search button styling */
+.input-group .input-group-text {
+    font-family: 'Playfair Display', serif; /* Ensure button text matches */
+    font-weight: 500;
+    font-size: 17px;
+}
+
 
 /*Navigation links styling*/
 .nav_links {
