@@ -20,7 +20,7 @@
             </nav>
     </header>
 
-    <div class="containter">
+    <div class="container">
     <h5>Filter by</h5>
     <div class="filter-controls mb-3" style="width: 100%;">
     <div class="d-flex" style="width: 100%; justify-content: space-between;">
@@ -90,10 +90,12 @@
 
                     // Loop through each painting and create a Bootstrap card
                     data.forEach(painting => {
+                        const fullImageUrl = `http://localhost/ArtWebsite/${painting.image_url}`;
+                       
                         paintingCards.innerHTML += `
                             <div class="col-md-4">
-                                <div class="card mb-4 shadow-sm">
-                                    <img src="${painting.image_url}" class="card-img-top" alt="${painting.title}">
+                                <div class="card mb-3 mt-3">
+                                    <img src="${fullImageUrl}" class="card-img-top" alt="${painting.title} onerror="this.onerror=null;this.src='path/to/default-image.jpg';">
                                     <div class="card-body">
                                         <h5 class="card-title">${painting.title}</h5>
                                         <p class="card-text">Artist: ${painting.artist_name}</p>

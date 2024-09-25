@@ -43,6 +43,11 @@ if (!empty($search)) {
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+echo "<pre>";
+print_r($results);
+echo "</pre>";
+exit;
+
 error_log("Results Count: " . count($results)); 
 
 header('Content-Type: application/json'); // Ensure the content type is JSON
