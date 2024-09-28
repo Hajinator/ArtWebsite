@@ -10,7 +10,7 @@ error_log("Artist: $artist, Style: $style, Search: $search"); // Log parameters
 
 
 // Build the SQL query
-$sql = "SELECT P.Title, P.Style, P.ImagePath AS image_url, A.Name as artist_name 
+$sql = "SELECT P.Title, P.Style, P.Finished, P.ImagePath AS image_url, A.Name as artist_name 
         FROM Paintings P 
         INNER JOIN Artists A ON P.ArtistID = A.ArtistID 
         WHERE 1";
@@ -43,10 +43,6 @@ if (!empty($search)) {
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo "<pre>";
-print_r($results);
-echo "</pre>";
-exit;
 
 error_log("Results Count: " . count($results)); 
 
