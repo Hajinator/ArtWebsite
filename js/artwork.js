@@ -71,8 +71,18 @@ function selectStyle(style) {
 function applyFilters() {
     const search = document.getElementById('searchInput').value;
     currentPage = 1;
-    fetchPaintings(selectedArtist, selectedStyle, search, currentPage);
+    if (search === '') {
+        // If the search is empty, optionally fetch all paintings
+        fetchPaintings(selectedArtist, selectedStyle, '', currentPage); // Fetch all paintings
+    } else {
+        fetchPaintings(selectedArtist, selectedStyle, search, currentPage);
+    }
 }
+
+// Search function
+document.getElementById('searchInput').addEventListener('input', function() {
+    applyFilters();
+});
 
 // Initially load all paintings
 window.onload = function() {

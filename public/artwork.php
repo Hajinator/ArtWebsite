@@ -29,15 +29,15 @@
                 Artists
             </button>
             <ul class="dropdown-menu" id="artistFilter" aria-labelledby="artistDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'Show All')">Show All</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'August Renoir')">August Renoir</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'Michelangelo')">Michelangelo</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'Vincent Van Gogh')">Vincent Van Gogh</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'Leonardo da Vinci')">Leonardo da Vinci</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'Claude Monet')">Claude Monet</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'Pablo Picasso')">Pablo Picasso</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'Salvador Dali')">Salvador Dali</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('artist', 'Paul Cezanne')">Paul Cezanne</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Show All')">Show All</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'August Renoir')">August Renoir</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Michelangelo')">Michelangelo</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Vincent Van Gogh')">Vincent Van Gogh</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Leonardo da Vinci')">Leonardo da Vinci</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Claude Monet')">Claude Monet</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Pablo Picasso')">Pablo Picasso</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Salvador Dali')">Salvador Dali</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Paul Cezanne')">Paul Cezanne</a></li>
             </ul>
         </div>
 
@@ -46,13 +46,13 @@
                 Style
             </button>
             <ul class="dropdown-menu" id="styleFilter" aria-labelledby="styleDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('style', 'Show All')">Show All</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('style', 'Impressionism')">Impressionism</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('style', 'Mannerism')">Mannerism</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('style', 'Realism')">Realism</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('style', 'Portrait')">Portrait</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('style', 'Cubism')">Cubism</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterPaintings('style', 'Surrealism')">Surrealism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Show All')">Show All</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Impressionism')">Impressionism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Mannerism')">Mannerism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Realism')">Realism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Portrait')">Portrait</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Cubism')">Cubism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Surrealism')">Surrealism</a></li>
             </ul>
         </div>
 
@@ -62,7 +62,7 @@
     </button>
         <div class="input-group flex-grow-1" style="width: 255px;">
                 <input type="text" class="form-control" id="searchInput" placeholder="Search for paintings" aria-label="Search for paintings">
-                <button class="btn btn-secondary" type="button" onclick="filterPaintings('search', document.getElementById('searchInput').value)">Search</button>
+                <button class="btn btn-secondary" type="button" onclick="applyFilters()">Search</button>
             </div>
         </div>
     </div>
