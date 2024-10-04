@@ -90,6 +90,11 @@ document.getElementById('searchInput').addEventListener('input', function() {
     applyFilters();
 });
 
+document.getElementById('addPainting').addEventListener('click', function() {
+    var modal = new bootstrap.Modal(document.getElementById('addPaintingModal'));
+    modal.show();
+});
+
 // Initially load all paintings
 window.onload = function() {
     fetchPaintings(selectedArtist, selectedStyle, '', currentPage); // Load all paintings on page load

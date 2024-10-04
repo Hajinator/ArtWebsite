@@ -60,6 +60,42 @@
     <button class="btn btn-secondary me-2 btn-custom" type="button" id="addPainting"> <!-- Add 'me-2' for margin -->
         Add Painting
     </button>
+    <!-- Modal for Adding a Painting -->
+<div class="modal fade" id="addPaintingModal" tabindex="-1" aria-labelledby="addPaintingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPaintingModalLabel">Add a New Painting</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addPaintingForm">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Enter painting title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="artist" class="form-label">Artist</label>
+                        <input type="text" class="form-control" id="artist" placeholder="Enter artist name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="style" class="form-label">Style</label>
+                        <input type="text" class="form-control" id="style" placeholder="Enter painting style" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="media" class="form-label">Media</label>
+                        <input type="text" class="form-control" id="media" placeholder="Enter media type" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image_url" class="form-label">Image URL</label>
+                        <input type="text" class="form-control" id="image_url" placeholder="Enter image URL" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Painting</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
         <div class="input-group flex-grow-1" style="width: 255px;">
                 <input type="text" class="form-control" id="searchInput" placeholder="Search for paintings" aria-label="Search for paintings">
                 <button class="btn btn-secondary" type="button" onclick="applyFilters()">Search</button>
@@ -73,6 +109,7 @@
     </div>
 
 <script src="../js/artwork.js"></script>
+<script src="../js/add_art_work.js"></script>
 
 <nav aria-label="Page navigation" class="pagination-container">
     <ul class="pagination justify-content-center" id="paginationContainer"></ul>
