@@ -29,15 +29,15 @@
                 Artists
             </button>
             <ul class="dropdown-menu" id="artistFilter" aria-labelledby="artistDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Show All')">Show All</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'August Renoir')">August Renoir</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Michelangelo')">Michelangelo</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Vincent Van Gogh')">Vincent Van Gogh</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Leonardo da Vinci')">Leonardo da Vinci</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Claude Monet')">Claude Monet</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Pablo Picasso')">Pablo Picasso</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Salvador Dali')">Salvador Dali</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('artist', 'Paul Cezanne')">Paul Cezanne</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('Show All')">Show All</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('August Renoir')">August Renoir</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('Michelangelo')">Michelangelo</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('Vincent Van Gogh')">Vincent Van Gogh</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('Leonardo da Vinci')">Leonardo da Vinci</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('Claude Monet')">Claude Monet</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('Pablo Picasso')">Pablo Picasso</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('Salvador Dali')">Salvador Dali</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectArtist('Paul Cezanne')">Paul Cezanne</a></li>
             </ul>
         </div>
 
@@ -46,13 +46,13 @@
                 Style
             </button>
             <ul class="dropdown-menu" id="styleFilter" aria-labelledby="styleDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Show All')">Show All</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Impressionism')">Impressionism</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Mannerism')">Mannerism</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Realism')">Realism</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Portrait')">Portrait</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Cubism')">Cubism</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="fetchPaintings('style', 'Surrealism')">Surrealism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectStyle('Show All')">Show All</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectStyle('Impressionism')">Impressionism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectStyle('Mannerism')">Mannerism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectStyle('Realism')">Realism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectStyle('Portrait')">Portrait</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectStyle('Cubism')">Cubism</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectStyle('Surrealism')">Surrealism</a></li>
             </ul>
         </div>
 

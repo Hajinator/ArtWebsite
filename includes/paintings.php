@@ -18,13 +18,13 @@ $sql = "SELECT P.Title, P.Style, P.Finished, P.Media, P.ImagePath AS image_url, 
         INNER JOIN Artists A ON P.ArtistID = A.ArtistID 
         WHERE 1";
 
-if (!empty($artist) && $artist != 'Show All') {
+if ($artist && $artist != 'Show All') {
     $sql .= " AND A.Name = :artist";
 }
-if (!empty($style) && $style != 'Show All') {
+if ($style && $style != 'Show All') {
     $sql .= " AND P.Style = :style";
 }
-if (!empty($search)) {
+if ($search) {
     $sql .= " AND P.Title LIKE :search";
 }
 
@@ -35,49 +35,53 @@ error_log("SQL Query: $sql");
 $stmt = $pdo->prepare($sql);
 
 // Bind the values
-if (!empty($artist) && $artist != 'Show All') {
+if ($artist && $artist != 'Show All') {
     $stmt->bindValue(':artist', $artist);
 }
-if (!empty($style) && $style != 'Show All') {
+if ($style && $style != 'Show All') {
     $stmt->bindValue(':style', $style);
 }
-if (!empty($search)) {
+if ($search) {
     $stmt->bindValue(':search', "%$search%");
 }
+
 $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
 $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
 
-$countSql = "SELECT COUNT(*) FROM Paintings P INNER JOIN Artists A ON P.ArtistID = A.ArtistID WHERE 1";
-if (!empty($artist) && $artist != 'Show All') {
-    $countSql .= " AND A.Name = :artist";
-}
-if (!empty($style) && $style != 'Show All') {
-    $countSql .= " AND P.Style = :style";
-}
-if (!empty($search)) {
-    $countSql .= " AND P.Title LIKE :search";
-}
-$countStmt = $pdo->prepare($countSql);
-if (!empty($artist) && $artist != 'Show All') {
-    $countStmt->bindValue(':artist', $artist);
-}
-if (!empty($style) && $style != 'Show All') {
-    $countStmt->bindValue(':style', $style);
-}
-if (!empty($search)) {
-    $countStmt->bindValue(':search', "%$search%");
-}
-
-$countStmt->execute();
-$totalCount = $countStmt->fetchColumn();
-
 $stmt->execute();
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC); // Get total number of paintings
+$paintings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Return the results along with pagination data
+$totalSql = "SELECT COUNT(*) FROM Paintings P INNER JOIN Artists A ON P.ArtistID = A.ArtistID WHERE 1";
+if ($artist && $artist != 'Show All') {
+    $totalSql .= " AND A.Name = :artist";
+}
+if ($style && $style != 'Show All') {
+    $totalSql .= " AND P.Style = :style";
+}
+if ($search) {
+    $totalSql .= " AND P.Title LIKE :search";
+}
+
+$totalStmt = $pdo->prepare($totalSql);
+
+if ($artist && $artist != 'Show All') {
+    $totalStmt->bindValue(':artist', $artist);
+}
+if ($style && $style != 'Show All') {
+    $totalStmt->bindValue(':style', $style);
+}
+if ($search) {
+    $totalStmt->bindValue(':search', "%$search%");
+}
+
+$totalStmt->execute();
+$totalCount = $totalStmt->fetchColumn();
+$totalPages = ceil($totalCount / $limit);
+
+// Return JSON response
 header('Content-Type: application/json');
 echo json_encode([
-    'paintings' => $results,
-    'total' => $totalCount,
-    'pages' => ceil($totalCount / $limit), // Calculate total pages
+    'paintings' => $paintings,
+    'pages' => $totalPages
 ]);
+

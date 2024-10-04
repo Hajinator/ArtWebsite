@@ -6,22 +6,25 @@ let currentPage = 1;
 function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', page = 1) {
     const url = `../includes/paintings.php?artist=${artist}&style=${style}&search=${search}&page=${page}`;
     
+     // Debugging: Log the applied filter parameters
+     console.log("Selected artist:", artist);
+     console.log("Selected style:", style);
+     console.log("Search query:", search);
+
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            console.log("Fetched data:", data);
             const paintingCards = document.getElementById('paintingCards');
             paintingCards.innerHTML = ''; // Clear previous results
 
             if (data.length === 0) {
-    paintingCards.innerHTML = '<p>No paintings found.</p>'; // Inform user no results
-}
+            paintingCards.innerHTML = '<p>No paintings found.</p>'; // Inform user no results
+            }
 
             // Loop through each painting and create a Bootstrap card
             data.paintings.forEach(painting => {
-                console.log(painting);
                 const fullImageUrl = `http://localhost/ArtWebsite/${painting.image_url}`;
-                console.log(fullImageUrl);
                 paintingCards.innerHTML += `
                     <div class="col-md-4">
                         <div class="card mb-3 mt-3">
@@ -58,12 +61,15 @@ function renderPagination(totalPages, currentPage) {
  // Select artist from dropdown
  function selectArtist(artist) {
     selectedArtist = artist;
+    console.log("Artist selected:", selectedArtist);
+    
     applyFilters();
 }
 
 // Select style from dropdown
 function selectStyle(style) {
     selectedStyle = style;
+    console.log("Style selected:", selectedStyle);
     applyFilters();
 }
 
