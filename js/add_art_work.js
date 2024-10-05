@@ -1,3 +1,5 @@
+//For adding artwork
+
 document.getElementById('addPaintingForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
 
@@ -7,6 +9,13 @@ document.getElementById('addPaintingForm').addEventListener('submit', function(e
     const style = document.getElementById('style').value;
     const media = document.getElementById('media').value;
     const imageUrl = document.getElementById('image_url').value;
+
+
+    //Form validation to ensure no empty fields
+ if (!title || !artist || !style || !media || !imageUrl) {
+    alert('All fields are required.');
+    return; // Stop submission if validation fails
+ }
 
     // Send the data to the server via fetch
     fetch('../includes/add_art_work.php', {
@@ -19,7 +28,7 @@ document.getElementById('addPaintingForm').addEventListener('submit', function(e
             artist: artist,
             style: style,
             media: media,
-            imageUrl: imageUrl
+            image_url: imageUrl
         })
     })
     .then(response => response.json())
@@ -27,14 +36,17 @@ document.getElementById('addPaintingForm').addEventListener('submit', function(e
         if (data.success) {
             // Painting added successfully
             alert('Painting added successfully!');
-            // Optionally close the modal
+
+            
+            //Close the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('addPaintingModal'));
             modal.hide();
+
 
             // Reload paintings to show the newly added one
             fetchPaintings();
         } else {
-            // Handle errors
+            // Handle server errors
             alert('Error adding painting: ' + data.error);
         }
     })

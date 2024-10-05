@@ -1,9 +1,8 @@
-/*Haji Daly*/
-/*P264417*/
-/*4/8/2024*/
+/*Style for About and Home page*/
 
 /*Import Google Fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 /*Body styling*/
 body {
     background-image: url("RedBackground.png");
@@ -30,6 +29,7 @@ main {
     text-decoration: none;
 }
 
+/* Main content area */
 .main-content {
     padding: 20px;
     max-width: 1000px;
@@ -38,7 +38,7 @@ main {
     margin: 75px auto 0 auto;
 }
 
-
+/* Header layout */
 header {
     display: flex;
     justify-content: center;
@@ -46,13 +46,13 @@ header {
     width: 100%;
 }
 
-
 header .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 30px 15px;
 }
 
+/* Footer layout */
 footer {
     font-size: 10px;
     padding: 10px;
@@ -60,6 +60,7 @@ footer {
     text-align: left;
     width: 100%;
 }
+
 
 /*Navigation links styling*/
 .nav_links {

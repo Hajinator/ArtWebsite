@@ -1,28 +1,30 @@
+// JavaScript for fetching and displaying paintings with filter options and pagination
+
+//Create variables for selected artist, style and current page for pagination
 let selectedArtist = 'Show All';
 let selectedStyle = 'Show All';
 let currentPage = 1;
 
-// Fetch and display paintings
+
+//Fetch paintings from the server and display them using Bootstrap cards
+//Function accepts filter values for artist, style, a search term, and the page number
 function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', page = 1) {
     const url = `../includes/paintings.php?artist=${artist}&style=${style}&search=${search}&page=${page}`;
     
-     // Debugging: Log the applied filter parameters
-     console.log("Selected artist:", artist);
-     console.log("Selected style:", style);
-     console.log("Search query:", search);
-
     fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log("Fetched data:", data);
-            const paintingCards = document.getElementById('paintingCards');
-            paintingCards.innerHTML = ''; // Clear previous results
+            const paintingCards = document.getElementById('paintingCards'); //Container for Bootstrap cards
+            paintingCards.innerHTML = '';
 
+
+            //Show a message if no paintings are found
             if (data.length === 0) {
-            paintingCards.innerHTML = '<p>No paintings found.</p>'; // Inform user no results
+            paintingCards.innerHTML = '<p>No paintings found.</p>';
             }
 
-            // Loop through each painting and create a Bootstrap card
+            // Loop through each painting and create a Bootstrap card for it
             data.paintings.forEach(painting => {
                 const fullImageUrl = `http://localhost/ArtWebsite/${painting.image_url}`;
                 paintingCards.innerHTML += `
@@ -41,11 +43,14 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
                         </div>
                     </div>`;
             });
-            renderPagination(data.pages, page);
+            //Render pagination based on total pages and current page
+            renderPagination(data.pages, page); 
         })
         .catch(error => console.error('Error fetching paintings:', error));
 }
 
+
+// Render pagination controls based on total number of pages and the current page
 function renderPagination(totalPages, currentPage) {
     const paginationContainer = document.getElementById('paginationContainer');
     paginationContainer.innerHTML = ''; // Clear existing pagination
@@ -58,44 +63,44 @@ function renderPagination(totalPages, currentPage) {
     }
 }
 
- // Select artist from dropdown
+
+ //Select artist from dropdown and apply filter
  function selectArtist(artist) {
     selectedArtist = artist;
-    console.log("Artist selected:", selectedArtist);
-    
     applyFilters();
 }
 
-// Select style from dropdown
+
+ //Select style from dropdown and apply filter
 function selectStyle(style) {
     selectedStyle = style;
-    console.log("Style selected:", selectedStyle);
     applyFilters();
 }
 
-// Apply filters and fetch paintings based on selected artist, style, and search term
+
+// Apply filters and fetch paintings based on selected artist, style, and search input
 function applyFilters() {
     const search = document.getElementById('searchInput').value;
-    currentPage = 1;
-    if (search === '') {
-        // If the search is empty, optionally fetch all paintings
-        fetchPaintings(selectedArtist, selectedStyle, '', currentPage); // Fetch all paintings
-    } else {
-        fetchPaintings(selectedArtist, selectedStyle, search, currentPage);
+    currentPage = 1; //Reset to first page on filter change
+    fetchPaintings(selectedArtist, selectedStyle, search, currentPage);
     }
-}
 
-// Search function
+
+
+//Event listener to apply filters when typing
 document.getElementById('searchInput').addEventListener('input', function() {
     applyFilters();
 });
 
+
+//Handle add painting button click to show the modal
 document.getElementById('addPainting').addEventListener('click', function() {
     var modal = new bootstrap.Modal(document.getElementById('addPaintingModal'));
     modal.show();
 });
 
-// Initially load all paintings
+
+//Initially load all paintings
 window.onload = function() {
-    fetchPaintings(selectedArtist, selectedStyle, '', currentPage); // Load all paintings on page load
+    fetchPaintings(selectedArtist, selectedStyle, '', currentPage);
 };

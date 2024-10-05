@@ -1,9 +1,8 @@
-/*Haji Daly*/
-/*P264417*/
-/*4/8/2024*/
+/*Styling for artwork.php*/
 
 /*Import Google Fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 /*Body styling*/
 body {
     background-image: url("RedBackground.png");
@@ -18,10 +17,12 @@ body {
     justify-content: flex-start;
 }
 
+/* Dropdown positioning */
 .dropdown {
     position: relative;
 }
 
+/* General font and text settings */
 li,
 a,
 footer,
@@ -35,7 +36,7 @@ main {
     text-decoration: none;
 }
 
-/* Flex container for filter controls */
+/*Filter controls layout */
 .filter-controls {
     display: flex;
     align-items: center; /* Center vertically */
@@ -44,21 +45,21 @@ main {
 
 }
 
+/* Push the search bar to the right */
 .input-group {
-    margin-left: auto; /* Push the search bar to the right */
+    margin-left: auto;
 }
 
 /* Input field styling */
 .input-group .form-control {
-    font-family: 'Playfair Display', serif; /* Use the same font as other elements */
-    font-weight: 500; /* Match the font weight */
-    font-size: 17px; /* Match the font size */
-
+    font-family: 'Playfair Display', serif; 
+    font-weight: 500;
+    font-size: 17px;
 }
 
-/* Optional: Search button styling */
+/*Search button styling */
 .input-group .input-group-text {
-    font-family: 'Playfair Display', serif; /* Ensure button text matches */
+    font-family: 'Playfair Display', serif; 
     font-weight: 500;
     font-size: 17px;
 }
@@ -84,16 +85,20 @@ main {
     background-color: rgba(255,255, 255, 0.5);
 }
 
+/* Card image and layout */
 .card-img-top {
-    height: 420px; /* Set your desired height */
-    object-fit: cover; /* Maintain aspect ratio */
+    height: 420px;
+    object-fit: cover;
 }
+
 .card {
     margin: 20px 0;
     display: flex;
     flex-direction: column;
     height: 100%;
 }
+
+/* Card content and heading styling */
 .card-body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
@@ -102,6 +107,7 @@ main {
     color: rgb(0, 0, 0);
 }
 
+/* Card heading styling */
 h5 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
@@ -110,11 +116,13 @@ h5 {
     color: rgb(0, 0, 0);
 }
 
+/* Custom button width */
 .btn-custom {
     width: 125px 
     
 }
 
+/* Pagination container padding */
 .pagination-container {
     padding-top: 50px;
 }

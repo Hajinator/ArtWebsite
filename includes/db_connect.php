@@ -1,3 +1,4 @@
+<!--Create connection to database-->
 <?php
 
 $dsn = "mysql:host=localhost;dbname=acmearts";
