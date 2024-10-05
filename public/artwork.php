@@ -124,6 +124,13 @@
                                                 placeholder="Enter media type" required>
                                         </div>
 
+                                        <!-- Finished -->
+                                        <div class="mb-3">
+                                            <label for="finished" class="form-label">Finished</label>
+                                            <input type="text" class="form-control" id="finished"
+                                                placeholder="Enter finished year" required>
+                                        </div>
+
                                         <!-- Image URL -->
                                         <div class="mb-3">
                                             <label for="image_url" class="form-label">Image URL</label>
@@ -137,7 +144,7 @@
                         </div>
                     </div>
 
-                    
+
                     <!-- Search Input box-->
                     <div class="input-group flex-grow-1" style="width: 255px;">
                         <input type="text" class="form-control" id="searchInput" placeholder="Search for paintings"

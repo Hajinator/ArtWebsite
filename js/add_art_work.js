@@ -8,11 +8,12 @@ document.getElementById('addPaintingForm').addEventListener('submit', function(e
     const artist = document.getElementById('artist').value;
     const style = document.getElementById('style').value;
     const media = document.getElementById('media').value;
+    const finished = document.getElementById('finished').value;
     const imageUrl = document.getElementById('image_url').value;
 
 
     //Form validation to ensure no empty fields
- if (!title || !artist || !style || !media || !imageUrl) {
+ if (!title || !artist || !style || !media || !finished || !imageUrl) {
     alert('All fields are required.');
     return; // Stop submission if validation fails
  }
@@ -28,6 +29,7 @@ document.getElementById('addPaintingForm').addEventListener('submit', function(e
             artist: artist,
             style: style,
             media: media,
+            finished: finished,
             image_url: imageUrl
         })
     })
@@ -37,7 +39,7 @@ document.getElementById('addPaintingForm').addEventListener('submit', function(e
             // Painting added successfully
             alert('Painting added successfully!');
 
-            
+
             //Close the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('addPaintingModal'));
             modal.hide();

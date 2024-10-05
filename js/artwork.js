@@ -78,12 +78,17 @@ function selectStyle(style) {
 }
 
 
-// Apply filters and fetch paintings based on selected artist, style, and search input
+// Apply filters and fetch paintings based on selected artist, style, and search term
 function applyFilters() {
     const search = document.getElementById('searchInput').value;
-    currentPage = 1; //Reset to first page on filter change
-    fetchPaintings(selectedArtist, selectedStyle, search, currentPage);
+    currentPage = 1;
+    if (search === '') {
+        // If the search is empty, optionally fetch all paintings
+        fetchPaintings(selectedArtist, selectedStyle, '', currentPage); // Fetch all paintings
+    } else {
+        fetchPaintings(selectedArtist, selectedStyle, search, currentPage);
     }
+}
 
 
 

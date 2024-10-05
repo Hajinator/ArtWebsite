@@ -1,8 +1,8 @@
-<!--This script handles fetching and filtering paintings from the database.
- It allows the user to filter paintings by artist name, style, and a search term and implementing pagination
-to limit the number of paintings displayed-->
-
 <?php
+//This script handles fetching and filtering paintings from the database.
+ //It allows the user to filter paintings by artist name, style, and a search term and implementing pagination
+ //to limit the number of paintings displayed
+
 include 'db_connect.php'; // Database connection file
 
 // Get filter parameters

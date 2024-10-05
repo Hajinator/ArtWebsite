@@ -1,6 +1,6 @@
-<!--This script is responsible for adding a new painting to the database-->
-
 <?php
+//This script is responsible for adding a new painting to the database
+
 //Create database connection
 include 'db_connect.php';
 

@@ -1,5 +1,5 @@
-<!--Create connection to database-->
 <?php
+//This script creates the database connection to MySQL server
 
 $dsn = "mysql:host=localhost;dbname=acmearts";
 $dbusername = "root";
