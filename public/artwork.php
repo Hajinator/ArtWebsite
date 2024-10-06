@@ -12,7 +12,29 @@
 
 
 <!--Body with bootstrap classes and navigation bar-->
+
 <body>
+    <?php
+    include '../includes/db_connect.php'; // Database connection file
+
+    // Fetch artists from the database
+    try {
+        $stmt = $pdo->query("SELECT ArtistID, Name FROM Artists");
+        $artists = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        die("Could not fetch artists: " . $e->getMessage());
+    }
+
+// Fetch unique styles from the Paintings table
+try {
+    $stmt = $pdo->query("SELECT DISTINCT Style FROM Paintings");
+    $styles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Could not fetch styles: " . $e->getMessage());
+}
+?>
+
+
     <header class="d-flex justify-content-center align-items-center p-3">
         <nav>
             <ul class="nav_links d-flex flex-wrap justify-content-center mb-0">
@@ -96,46 +118,59 @@
 
                                 <!-- Title -->
                                 <div class="modal-body">
-                                    <form id="addPaintingForm">
+                                    <form id="addPaintingForm" enctype="multipart/form-data">
                                         <div class="mb-3">
                                             <label for="title" class="form-label">Title</label>
-                                            <input type="text" class="form-control" id="title"
+                                            <input type="text" class="form-control" id="title" name="title"
                                                 placeholder="Enter painting title" required>
                                         </div>
 
-                                        <!-- Artist -->
+                                        <!-- Artist Dropdown Menu -->
                                         <div class="mb-3">
-                                            <label for="artist" class="form-label">Artist</label>
-                                            <input type="text" class="form-control" id="artist"
-                                                placeholder="Enter artist name" required>
+                                            <label for="artistId" class="form-label">Artist</label>
+                                            <select class="form-select" id="artistId" name="artistId" required>
+                                                <option value="" disabled selected>Select an artist</option>
+                                                <?php foreach ($artists as $artist): ?>
+                                                <option value="<?php echo $artist['ArtistID']; ?>">
+                                                    <?php echo htmlspecialchars($artist['Name']); ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
 
-                                        <!-- Style -->
+
+                                        <!-- Style Drop Down Menu -->
                                         <div class="mb-3">
                                             <label for="style" class="form-label">Style</label>
-                                            <input type="text" class="form-control" id="style"
-                                                placeholder="Enter painting style" required>
+                                            <select class="form-select" id="style" name="style" required>
+                                                <option value="" disabled selected>Select a style</option>
+                                                <?php foreach ($styles as $style): ?>
+                                                <option value="<?php echo htmlspecialchars($style['Style']); ?>">
+                                                    <?php echo htmlspecialchars($style['Style']); ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
 
                                         <!-- Media -->
                                         <div class="mb-3">
                                             <label for="media" class="form-label">Media</label>
-                                            <input type="text" class="form-control" id="media"
-                                                placeholder="Enter media type" required>
+                                            <input type="text" class="form-control" id="media" name="media"
+                                                placeholder="Enter media type" required> <!-- Add name attribute -->
                                         </div>
 
                                         <!-- Finished -->
                                         <div class="mb-3">
                                             <label for="finished" class="form-label">Finished</label>
-                                            <input type="text" class="form-control" id="finished"
-                                                placeholder="Enter finished year" required>
+                                            <input type="text" class="form-control" id="finished" name="finished"
+                                                placeholder="Enter finished year" required> <!-- Add name attribute -->
                                         </div>
 
-                                        <!-- Image URL -->
+                                        <!-- Image File -->
                                         <div class="mb-3">
-                                            <label for="image_url" class="form-label">Image URL</label>
-                                            <input type="text" class="form-control" id="image_url"
-                                                placeholder="Enter image URL" required>
+                                            <label for="image" class="form-label">Upload Image</label>
+                                            <input type="file" class="form-control" id="image" name="image"
+                                                accept="image/*" required> <!-- Add name attribute -->
                                         </div>
                                         <button type="submit" class="btn btn-primary">Add Painting</button>
                                     </form>
@@ -162,7 +197,7 @@
 
     <!-- Import Javascript -->
     <script src="../js/artwork.js"></script>
-    <script src="../js/add_art_work.js"></script>
+    <script src="../js/add_painting.js"></script>
 
 
     <!-- Create navbar for Pagination -->

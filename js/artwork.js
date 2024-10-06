@@ -11,7 +11,7 @@ let currentPage = 1;
 function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', page = 1) {
     const url = `../includes/paintings.php?artist=${artist}&style=${style}&search=${search}&page=${page}`;
     
-    fetch(url)
+    return fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log("Fetched data:", data);
@@ -20,7 +20,7 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
 
 
             //Show a message if no paintings are found
-            if (data.length === 0) {
+            if (data.paintings.length === 0) {
             paintingCards.innerHTML = '<p>No paintings found.</p>';
             }
 
@@ -30,7 +30,7 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
                 paintingCards.innerHTML += `
                     <div class="col-md-4">
                         <div class="card mb-3 mt-3">
-                            <img src="${fullImageUrl}" class="card-img-top" alt="${painting.title} onerror="this.onerror=null;this.src='path/to/default-image.jpg';">
+                            <img src="${fullImageUrl}" class="card-img-top" alt="${painting.title}" onerror="this.onerror=null;this.src='path/to/default-image.jpg';">
                             <div class="card-body">
                                 <h5 class="card-title"><strong>${painting.Title}</strong></h5>
                                 <p class="card-text">Artist: ${painting.artist_name}</p>
@@ -38,7 +38,7 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
                                 <p class="card-text">Type: ${painting.Media }</p>
                                 <p class="card-text">Finished: ${painting.Finished}</p>
                                 <button type="button" class="btn btn-outline-warning">Edit</button>
-                                <button type="button" class="btn btn-outline-danger">Delete</button>
+                               <button type="button" class="btn btn-outline-danger" onclick="deletePainting(${painting.PaintingID})">Delete</button>
                             </div>
                         </div>
                     </div>`;
@@ -47,6 +47,52 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
             renderPagination(data.pages, page); 
         })
         .catch(error => console.error('Error fetching paintings:', error));
+}
+
+function deletePainting(paintingId) {
+    if (confirm('Are you sure you want to delete this painting?')) {
+        const url = `../includes/paintings.php?id=${paintingId}`;
+        console.log('Delete request for painting ID:', paintingId);
+        
+        fetch(url, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Error deleting painting.');
+            }
+        })
+        .then(data => {
+            console.log('Delete response:', data);
+            alert(data.message || 'Painting deleted successfully.');
+
+            // Fetch updated list of paintings
+            fetchPaintings(selectedArtist, selectedStyle, document.getElementById('searchInput').value, currentPage)
+                .then(() => {
+                    const paintingCards = document.getElementById('paintingCards').childElementCount;
+
+                    // If there are no paintings on the current page
+                    if (paintingCards === 0) {
+                        // Only decrement currentPage if it's greater than 1
+                        if (currentPage > 1) {
+                            currentPage--;  // Move to the previous page
+                            // Fetch paintings for the previous page
+                            fetchPaintings(selectedArtist, selectedStyle, document.getElementById('searchInput').value, currentPage);
+                        } else {
+                            // If currentPage is 1 and no paintings, just refresh the current page
+                            fetchPaintings(selectedArtist, selectedStyle, document.getElementById('searchInput').value, 1);
+                        }
+                    }
+                });
+        })
+        .catch(error => {
+            console.error('Error deleting painting:', error);
+            alert(error.message);
+        });
+    }
 }
 
 
@@ -89,7 +135,6 @@ function applyFilters() {
         fetchPaintings(selectedArtist, selectedStyle, search, currentPage);
     }
 }
-
 
 
 //Event listener to apply filters when typing
