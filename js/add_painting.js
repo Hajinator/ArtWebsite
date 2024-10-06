@@ -37,6 +37,7 @@ function addPainting() {
                 style: formData.get('style'), 
                 media: formData.get('media'), 
                 finished: formData.get('finished'), 
+                paintingId: data.paintingId,
                 imageUrl: data.imagePath 
             };
 
@@ -64,6 +65,7 @@ function displayNewPainting(painting) {
     //Create new card for the painting
     const card = document.createElement('div');
     card.className = 'card col-md-4'; // Add Bootstrap classes for styling
+    //card.setAttribute('data-id', painting.PaintingID);
     card.innerHTML = `
         <img src="${painting.imageUrl}" class="card-img-top" alt="${painting.title}">
         <div class="card-body">
@@ -72,6 +74,7 @@ function displayNewPainting(painting) {
             <p class="card-text">Style: ${painting.style}</p>
             <p class="card-text">Media: ${painting.media}</p>
             <p class="card-text">Finished: ${painting.finished}</p>
+            <button type="button" class="btn btn-outline-danger" onclick="deletePainting(${painting.paintingId})">Delete</button>
         </div>
     `;
     

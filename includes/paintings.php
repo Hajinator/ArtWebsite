@@ -15,7 +15,8 @@ $offset = ($page - 1) * $limit; // Calculate the offset for pagination
 
 
 // Build the SQL query for fetching paintings
-$sql = "SELECT P.Title, P.Style, P.Finished, P.Media, P.ImagePath AS image_url, A.Name as artist_name 
+$sql = "SELECT P.PaintingID, P.Title, P.Style, P.Finished, P.Media, P.ImagePath AS image_url, A.Name as artist_name,
+        P.ArtistID
         FROM Paintings P 
         INNER JOIN Artists A ON P.ArtistID = A.ArtistID 
         WHERE 1";

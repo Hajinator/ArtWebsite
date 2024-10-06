@@ -29,7 +29,7 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
                 const fullImageUrl = `http://localhost/ArtWebsite/${painting.image_url}`;
                 paintingCards.innerHTML += `
                     <div class="col-md-4">
-                        <div class="card mb-3 mt-3">
+                        <div class="card mb-3 mt-3" data-id="${painting.PaintingID}">
                             <img src="${fullImageUrl}" class="card-img-top" alt="${painting.title}" onerror="this.onerror=null;this.src='path/to/default-image.jpg';">
                             <div class="card-body">
                                 <h5 class="card-title"><strong>${painting.Title}</strong></h5>
