@@ -1,48 +1,48 @@
-
+//JavaScript for adding paintings to database and fetching them to display in bootstrap card
 
 document.getElementById('addPaintingForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
-    addPainting(); // Call the function to handle painting addition
+    event.preventDefault();
+    addPainting();
 });
 
-
 function addPainting() {
+    //Create variable to hold form data
     const formData = new FormData(document.getElementById('addPaintingForm'));
 
-
-    const modalElement = document.getElementById('addPaintingModal');
-    const modal = new bootstrap.Modal(modalElement);
-    
+    //Send the form data using fetch and post methods 
     fetch('../includes/add_painting.php', {
         method: 'POST',
         body: formData
     })
     .then(response => {
+
+        //Check if network request was successful
         if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
         }
-        return response.json();
+        return response.json(); //return response as json
     })
     .then(data => {
         console.log('Painting added successfully:', data);
-
-
-        
-
-        // Assuming the response contains the painting details
         if (data.message === "Painting added successfully.") {
-            modal.hide();
 
+            // Hide the modal using jQuery and automatically reload webpage to display added painting
+            $('#addPaintingModal').modal('hide'); 
+            location.reload(); 
+
+            // Create new painting object
             const newPainting = {
-                title: formData.get('title'), // Get from form data
-                artistId: formData.get('artistId'), // Get from form data
-                style: formData.get('style'), // Get from form data
-                media: formData.get('media'), // Get from form data
-                finished: formData.get('finished'), // Get from form data
-                imageUrl: data.imagePath // Assuming this is part of your response
+                title: formData.get('title'), 
+                artistId: formData.get('artistId'), 
+                style: formData.get('style'), 
+                media: formData.get('media'), 
+                finished: formData.get('finished'), 
+                imageUrl: data.imagePath 
             };
 
-            displayNewPainting(newPainting); // Call the function to display the new painting
+            displayNewPainting(newPainting); //Display newPainting
+        } else {
+            console.error("Error adding painting:", data.message);
         }
     })
     .catch(error => {
@@ -50,11 +50,20 @@ function addPainting() {
     });
 }
 
+
+//Display newly added painting as a bootstrap card
 function displayNewPainting(painting) {
-    // Create a Bootstrap card element for the new painting
+    const paintingCards = document.getElementById('paintingCards'); //Call paintingCards container in artwork.php
+    
+    //Check if it exists
+    if (!paintingCards) {
+        console.error("Painting cards container not found.");
+        return;
+    }
+
+    //Create new card for the painting
     const card = document.createElement('div');
-    card.className = 'card';
-    card.style.width = '18rem'; // Adjust as necessary
+    card.className = 'card col-md-4'; // Add Bootstrap classes for styling
     card.innerHTML = `
         <img src="${painting.imageUrl}" class="card-img-top" alt="${painting.title}">
         <div class="card-body">
@@ -65,9 +74,8 @@ function displayNewPainting(painting) {
             <p class="card-text">Finished: ${painting.finished}</p>
         </div>
     `;
-
-    // Append the new card to the container (assume container ID is 'paintingsContainer')
-    const paintingsContainer = document.getElementById('paintingsContainer');
-    paintingsContainer.appendChild(card);
+    
+    // Append the new card to the paintingCards container in artwork.php
+    paintingCards.appendChild(card); 
 }
   

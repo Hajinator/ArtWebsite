@@ -1,4 +1,4 @@
-// JavaScript for fetching and displaying paintings with filter options and pagination
+//JavaScript for fetching and displaying paintings in bootstrap card with filter options and pagination
 
 //Create variables for selected artist, style and current page for pagination
 let selectedArtist = 'Show All';
@@ -47,52 +47,6 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
             renderPagination(data.pages, page); 
         })
         .catch(error => console.error('Error fetching paintings:', error));
-}
-
-function deletePainting(paintingId) {
-    if (confirm('Are you sure you want to delete this painting?')) {
-        const url = `../includes/paintings.php?id=${paintingId}`;
-        console.log('Delete request for painting ID:', paintingId);
-        
-        fetch(url, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            console.log('Response status:', response.status);
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Error deleting painting.');
-            }
-        })
-        .then(data => {
-            console.log('Delete response:', data);
-            alert(data.message || 'Painting deleted successfully.');
-
-            // Fetch updated list of paintings
-            fetchPaintings(selectedArtist, selectedStyle, document.getElementById('searchInput').value, currentPage)
-                .then(() => {
-                    const paintingCards = document.getElementById('paintingCards').childElementCount;
-
-                    // If there are no paintings on the current page
-                    if (paintingCards === 0) {
-                        // Only decrement currentPage if it's greater than 1
-                        if (currentPage > 1) {
-                            currentPage--;  // Move to the previous page
-                            // Fetch paintings for the previous page
-                            fetchPaintings(selectedArtist, selectedStyle, document.getElementById('searchInput').value, currentPage);
-                        } else {
-                            // If currentPage is 1 and no paintings, just refresh the current page
-                            fetchPaintings(selectedArtist, selectedStyle, document.getElementById('searchInput').value, 1);
-                        }
-                    }
-                });
-        })
-        .catch(error => {
-            console.error('Error deleting painting:', error);
-            alert(error.message);
-        });
-    }
 }
 
 

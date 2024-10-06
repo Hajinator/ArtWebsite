@@ -11,13 +11,12 @@
 </head>
 
 
-<!--Body with bootstrap classes and navigation bar-->
-
+<!-- PHP script-->
 <body>
     <?php
-    include '../includes/db_connect.php'; // Database connection file
+    include '../includes/db_connect.php'; // Database connection
 
-    // Fetch artists from the database
+    // Fetch artists from the database to populate artist dropdown menu in modal
     try {
         $stmt = $pdo->query("SELECT ArtistID, Name FROM Artists");
         $artists = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -25,7 +24,7 @@
         die("Could not fetch artists: " . $e->getMessage());
     }
 
-// Fetch unique styles from the Paintings table
+    // Fetch styles from the database to populate style dropdown menu in modal
 try {
     $stmt = $pdo->query("SELECT DISTINCT Style FROM Paintings");
     $styles = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +33,7 @@ try {
 }
 ?>
 
-
+<!--Body with bootstrap classes and navigation bar-->
     <header class="d-flex justify-content-center align-items-center p-3">
         <nav>
             <ul class="nav_links d-flex flex-wrap justify-content-center mb-0">
@@ -44,6 +43,7 @@ try {
             </ul>
         </nav>
     </header>
+
 
     <!--Container for dropdown menu, add and search buttons -->
     <div class="container">
@@ -88,7 +88,7 @@ try {
                     <ul class="dropdown-menu" id="styleFilter" aria-labelledby="styleDropdown">
                         <li><a class="dropdown-item" href="#" onclick="selectStyle('Show All')">Show All</a></li>
                         <li><a class="dropdown-item" href="#" onclick="selectStyle('Impressionism')">Impressionism</a>
-                        </li>
+                        <li><a class="dropdown-item" href="#" onclick="selectStyle('Still-life')">Still-life</a></li>
                         <li><a class="dropdown-item" href="#" onclick="selectStyle('Mannerism')">Mannerism</a></li>
                         <li><a class="dropdown-item" href="#" onclick="selectStyle('Realism')">Realism</a></li>
                         <li><a class="dropdown-item" href="#" onclick="selectStyle('Portrait')">Portrait</a></li>
@@ -137,7 +137,6 @@ try {
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-
 
                                         <!-- Style Drop Down Menu -->
                                         <div class="mb-3">
@@ -195,7 +194,8 @@ try {
         <div id="paintingCards" class="row g-3"></div>
     </div>
 
-    <!-- Import Javascript -->
+    <!-- Import Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/artwork.js"></script>
     <script src="../js/add_painting.js"></script>
 
