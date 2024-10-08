@@ -1,49 +1,39 @@
-function openEditModal(paintingId) {
-    // Fetch the painting data from the server (you may need to create a new PHP endpoint for this)
-    fetch(`../includes/get_painting.php?paintingId=${paintingId}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data) {
-                // Populate the edit modal fields
-                document.getElementById('editPaintingId').value = data.paintingId;
-                document.getElementById('editTitle').value = data.title;
-                document.getElementById('editArtistId').value = data.artistId;
-                document.getElementById('editStyle').value = data.style;
-                document.getElementById('editMedia').value = data.media;
-                document.getElementById('editFinished').value = data.finished;
+function openEditModal(paintingId, title, artistId, style, media, finished) {
+    // Set the values in the modal
+    document.getElementById('editPaintingId').value = paintingId;
+    document.getElementById('editTitle').value = title;
+    document.getElementById('editArtistId').value = artistId;
+    document.getElementById('editStyle').value = style;
+    document.getElementById('editMedia').value = media;
+    document.getElementById('editFinished').value = finished;
 
-                // Show the edit modal
-                var modal = new bootstrap.Modal(document.getElementById('editPaintingModal'));
-                modal.show();
-            } else {
-                console.error('Painting data not found.');
-            }
-        })
-        .catch(error => console.error('Error fetching painting data:', error));
+    // Show the modal
+    const modal = new bootstrap.Modal(document.getElementById('editPaintingModal'));
+    modal.show();
 }
 
 document.getElementById('editPaintingForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    editPainting();
-});
+    event.preventDefault(); // Prevent the default form submission
 
-function editPainting() {
-    const formData = new FormData(document.getElementById('editPaintingForm'));
+    const formData = new FormData(this);
+    const paintingId = formData.get('paintingId');
 
-    fetch('../includes/edit_painting.php', {
+    // Send a request to the server to update the painting
+    fetch(`../includes/edit_painting.php`, {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
-        if (data.message === "Painting updated successfully.") {
-            $('#editPaintingModal').modal('hide'); 
-            location.reload(); // Reload to show updated painting
+        if (data.success) {
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editPaintingModal'));
+            modal.hide();
+            // Optionally, refresh the painting cards
+            fetchPaintings(selectedArtist, selectedStyle, document.getElementById('searchInput').value, currentPage);
         } else {
-            console.error("Error updating painting:", data.message);
+            console.error('Failed to update painting:', data.message);
         }
     })
-    .catch(error => {
-        console.error('Error updating painting:', error);
-    });
-}
+    .catch(error => console.error('Error updating painting:', error));
+});
