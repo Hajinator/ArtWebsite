@@ -37,7 +37,7 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
                                 <p class="card-text">Style: ${painting.Style }</p>
                                 <p class="card-text">Type: ${painting.Media }</p>
                                 <p class="card-text">Finished: ${painting.Finished}</p>
-                                <button type="button" class="btn btn-outline-warning">Edit</button>
+                                <button type="button" class="btn btn-outline-warning" onclick="openEditModal(${painting.paintingId}, '${painting.title}', '${painting.artistId}', '${painting.style}', '${painting.media}', '${painting.finished}')">Edit</button>
                                <button type="button" class="btn btn-outline-danger" onclick="deletePainting(${painting.PaintingID})">Delete</button>
                             </div>
                         </div>

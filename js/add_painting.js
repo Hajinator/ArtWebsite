@@ -75,10 +75,13 @@ function displayNewPainting(painting) {
             <p class="card-text">Media: ${painting.media}</p>
             <p class="card-text">Finished: ${painting.finished}</p>
             <button type="button" class="btn btn-outline-danger" onclick="deletePainting(${painting.paintingId})">Delete</button>
+            <button type="button" class="btn btn-outline-warning" onclick="openEditModal(${painting.paintingId}, '${painting.title}', '${painting.artistId}', '${painting.style}', '${painting.media}', '${painting.finished}')">Edit</button>
         </div>
     `;
     
     // Append the new card to the paintingCards container in artwork.php
     paintingCards.appendChild(card); 
 }
+
+
   

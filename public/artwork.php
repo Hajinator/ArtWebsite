@@ -12,6 +12,7 @@
 
 
 <!-- PHP script-->
+
 <body>
     <?php
     include '../includes/db_connect.php'; // Database connection
@@ -33,7 +34,7 @@ try {
 }
 ?>
 
-<!--Body with bootstrap classes and navigation bar-->
+    <!--Body with bootstrap classes and navigation bar-->
     <header class="d-flex justify-content-center align-items-center p-3">
         <nav>
             <ul class="nav_links d-flex flex-wrap justify-content-center mb-0">
@@ -155,21 +156,21 @@ try {
                                         <div class="mb-3">
                                             <label for="media" class="form-label">Media</label>
                                             <input type="text" class="form-control" id="media" name="media"
-                                                placeholder="Enter media type" required> <!-- Add name attribute -->
+                                                placeholder="Enter media type" required> 
                                         </div>
 
                                         <!-- Finished -->
                                         <div class="mb-3">
                                             <label for="finished" class="form-label">Finished</label>
                                             <input type="text" class="form-control" id="finished" name="finished"
-                                                placeholder="Enter finished year" required> <!-- Add name attribute -->
+                                                placeholder="Enter finished year" required> 
                                         </div>
 
                                         <!-- Image File -->
                                         <div class="mb-3">
                                             <label for="image" class="form-label">Upload Image</label>
                                             <input type="file" class="form-control" id="image" name="image"
-                                                accept="image/*" required> <!-- Add name attribute -->
+                                                accept="image/*" required> 
                                         </div>
                                         <button type="submit" class="btn btn-primary">Add Painting</button>
                                     </form>
@@ -177,6 +178,80 @@ try {
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- Modal for editing painting -->
+                    <div class="modal fade" id="editPaintingModal" tabindex="-1"
+                        aria-labelledby="editPaintingModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editPaintingModalLabel">Edit Painting</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="editPaintingForm">
+                                        <input type="hidden" id="editPaintingId" name="paintingId">
+                                        <div class="mb-3">
+
+
+                                        <!-- Title -->
+                                            <label for="editTitle" class="form-label">Title</label>
+                                            <input type="text" class="form-control" id="editTitle" name="title"
+                                                required>
+                                        </div>
+
+
+                                        <!-- Artist Dropdown Menu -->
+                                        <div class="mb-3">
+                                            <label for="editArtistId" class="form-label">Artist</label>
+                                            <select class="form-select" id="editArtistId" name="artistId" required>
+                                                <option value="" disabled selected>Select an artist</option>
+                                                <?php foreach ($artists as $artist): ?>
+                                                <option value="<?php echo $artist['ArtistID']; ?>">
+                                                    <?php echo htmlspecialchars($artist['Name']); ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+
+
+                                        <!-- Style Drop Down Menu -->
+                                        <div class="mb-3">
+                                            <label for="editStyle" class="form-label">Style</label>
+                                            <select class="form-select" id="editStyle" name="style" required>
+                                                <option value="" disabled selected>Select a style</option>
+                                                <?php foreach ($styles as $style): ?>
+                                                <option value="<?php echo htmlspecialchars($style['Style']); ?>">
+                                                    <?php echo htmlspecialchars($style['Style']); ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+
+
+                                        <!-- Media -->
+                                        <div class="mb-3">
+                                            <label for="editMedia" class="form-label">Media</label>
+                                            <input type="text" class="form-control" id="editMedia" name="media"
+                                                required>
+                                        </div>
+
+
+                                        <!-- Finished -->
+                                        <div class="mb-3">
+                                            <label for="editFinished" class="form-label">Finished</label>
+                                            <input type="text" class="form-control" id="editFinished" name="finished"
+                                                required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
 
                     <!-- Search Input box-->
@@ -198,6 +273,7 @@ try {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/artwork.js"></script>
     <script src="../js/add_painting.js"></script>
+    <script src="../js/edit_painting.js"></script>
     <script src="../js/delete_painting.js"></script>
 
 
