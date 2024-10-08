@@ -35,7 +35,7 @@ try {
 ?>
 
     <!--Body with bootstrap classes and navigation bar-->
-    <header class="d-flex justify-content-center align-items-center p-3">
+    <header class="d-flex justify-content-center align-items-center p-3 flex-column flex-md-row">
         <nav>
             <ul class="nav_links d-flex flex-wrap justify-content-center mb-0">
                 <li><a href="index.php">Home</a></li>
