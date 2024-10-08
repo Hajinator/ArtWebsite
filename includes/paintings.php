@@ -95,6 +95,6 @@ $totalPages = ceil($totalCount / $limit); //Caclulate number of pages
 // Return the results and pagination info as JSON
 header('Content-Type: application/json');
 echo json_encode([
-    'paintings' => $paintings, //Array of paintings
-    'pages' => $totalPages //total pages for pagination
+    'paintings' => $paintings,
+    'pages' => $totalPages 
 ]);

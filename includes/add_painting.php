@@ -2,7 +2,8 @@
 //This script handles adding paintings to the database.
  
 header('Content-Type: application/json');
-include 'db_connect.php'; // Database connection file
+include 'db_connect.php'; //Connect to database
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -12,11 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $media = $_POST['media'] ?? null;
     $finished = $_POST['finished'] ?? null;
 
+
     //Check's that all fields have been entered in modal
     if (empty($title) || empty($artistId) || empty($style) || empty($media) || empty($finished)) {
         echo json_encode(["message" => "All fields are required."]);
         exit;
     }
+
 
     // Handle the image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -33,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Prepare the SQL statement
             $stmt = $pdo->prepare("INSERT INTO Paintings (Title, Finished, Media, Style, ArtistID, ImagePath) VALUES (:title, :finished, :media, :style, :artistId, :imageUrl)");
 
-            // Bind values
+            // Set values
             $stmt->bindValue(':title', $title);
             $stmt->bindValue(':artistId', $artistId);
             $stmt->bindValue(':style', $style);
@@ -41,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindValue(':finished', $finished);
             $stmt->bindValue(':imageUrl', $relativeImagePath); // Save the relative path to the image
 
-            // Execute and check for errors
+            // Execute
             if ($stmt->execute()) {
                 echo json_encode(["message" => "Painting added successfully."]);
             } else {

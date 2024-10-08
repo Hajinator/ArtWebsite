@@ -1,5 +1,8 @@
+//JavaScript for editing paintings.
+
+
+//Function to open the edit modal in artwork.php and set values
 function openEditModal(paintingId, title, artistId, style, media, finished) {
-    // Set the values in the modal
     document.getElementById('editPaintingId').value = paintingId;
     document.getElementById('editTitle').value = title;
     document.getElementById('editArtistId').value = artistId;
@@ -13,7 +16,7 @@ function openEditModal(paintingId, title, artistId, style, media, finished) {
 }
 
 document.getElementById('editPaintingForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
     const formData = new FormData(this);
     const paintingId = formData.get('paintingId');
@@ -28,8 +31,7 @@ document.getElementById('editPaintingForm').addEventListener('submit', function(
         if (data.success) {
 
             const modal = bootstrap.Modal.getInstance(document.getElementById('editPaintingModal'));
-            modal.hide();
-            // Optionally, refresh the painting cards
+            modal.hide(); //Hide model after submitting edit modal
             fetchPaintings(selectedArtist, selectedStyle, document.getElementById('searchInput').value, currentPage);
         } else {
             console.error('Failed to update painting:', data.message);

@@ -1,4 +1,6 @@
 <?php
+//This script handles the editing of paintings.
+
 include 'db_connect.php'; // Database connection file
 
 // Check if POST data is received

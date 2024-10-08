@@ -1,7 +1,7 @@
 <?php
 //This script handles the deletion of paintings.
 
-include 'db_connect.php'; //Include database connection
+include 'db_connect.php'; //Connection to database
 
 //set contents to JSON
 header('Content-Type: application/json');
@@ -22,7 +22,7 @@ if (!isset($data['paintingId'])) {
 $paintingId = $data['paintingId'] ?? null;
 
 try {
-    //Prepare teh delete statemant
+    //Prepare the delete statemant
     $stmt = $pdo->prepare("DELETE FROM paintings WHERE PaintingID = :paintingId");
     $stmt->bindParam(':paintingId', $paintingId, PDO::PARAM_INT);
 
