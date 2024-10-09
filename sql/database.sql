@@ -8,8 +8,8 @@ CREATE TABLE Paintings (
     PaintingID INT PRIMARY KEY AUTO_INCREMENT, 
     Title VARCHAR(100) NOT NULL,
     Finished INT NOT NULL, 
-    Media VARCHAR(30), 
-    Style VARCHAR(30), 
+    Media VARCHAR(30) NOT NULL, 
+    Style VARCHAR (30) NOT NULL, 
     ArtistID INT NOT NULL,
     Image MEDIUMBLOB,
     FOREIGN KEY (ArtistID) REFERENCES Artists(ArtistID) ON DELETE CASCADE 
