@@ -15,7 +15,7 @@ $offset = ($page - 1) * $limit; // Calculate the offset for pagination
 
 
 // Build the SQL query for fetching paintings
-$sql = "SELECT P.PaintingID, P.Title, P.Style, P.Finished, P.Media, P.ImagePath AS image_url, A.Name as artist_name,
+$sql = "SELECT P.PaintingID, P.Title, P.Style, P.Finished, P.Media, P.Image AS image_blob, A.Name as artist_name,
         P.ArtistID
         FROM Paintings P 
         INNER JOIN Artists A ON P.ArtistID = A.ArtistID 
@@ -61,6 +61,15 @@ $stmt->execute();
 $paintings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
+// Convert the binary BLOB data into base64 and prepare image source
+foreach ($paintings as &$painting) {
+    if ($painting['image_blob']) {
+        $painting['image_blob'] = 'data:image/png;base64,' . base64_encode($painting['image_blob']);
+    } else {
+        $painting['image_blob'] = ''; // Set empty string if no image
+    }
+}
+
 //Build a second query to get total number of filtered paintings for pagination
 $totalSql = "SELECT COUNT(*) FROM Paintings P INNER JOIN Artists A ON P.ArtistID = A.ArtistID WHERE 1";
 if ($artist && $artist != 'Show All') {
@@ -96,5 +105,6 @@ $totalPages = ceil($totalCount / $limit); //Caclulate number of pages
 header('Content-Type: application/json');
 echo json_encode([
     'paintings' => $paintings,
-    'pages' => $totalPages 
+    'pages' => $totalPages,
+    'debug' => $paintings // Add this line for debugging
 ]);

@@ -38,7 +38,6 @@ function addPainting() {
                 media: formData.get('media'), 
                 finished: formData.get('finished'), 
                 paintingId: data.paintingId,
-                imageUrl: data.imagePath 
             };
 
             displayNewPainting(newPainting); //Display newPainting
@@ -53,35 +52,38 @@ function addPainting() {
 
 
 //Display newly added painting as a bootstrap card
-function displayNewPainting(painting) {
-    const paintingCards = document.getElementById('paintingCards'); //Call paintingCards container in artwork.php
-    
-    //Check if it exists
-    if (!paintingCards) {
-        console.error("Painting cards container not found.");
-        return;
-    }
+fetch(`../includes/get_painting_blob.php?id=${painting.paintingId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch painting BLOB: ' + response.statusText);
+            }
+            return response.blob(); // Return the response as a Blob
+        })
+        .then(blob => {
+            const fullImageBlob = URL.createObjectURL(blob); // Create a local URL for the Blob
 
-    //Create new card for the painting
-    const card = document.createElement('div');
-    card.className = 'card col-md-4'; // Add Bootstrap classes for styling
-    //card.setAttribute('data-id', painting.PaintingID);
-    card.innerHTML = `
-        <img src="${painting.imageUrl}" class="card-img-top" alt="${painting.title}">
-        <div class="card-body">
-            <h5 class="card-title">${painting.title}</h5>
-            <p class="card-text">Artist ID: ${painting.artistId}</p>
-            <p class="card-text">Style: ${painting.style}</p>
-            <p class="card-text">Media: ${painting.media}</p>
-            <p class="card-text">Finished: ${painting.finished}</p>
-            <button type="button" class="btn btn-outline-danger" onclick="deletePainting(${painting.paintingId})">Delete</button>
-            <button type="button" class="btn btn-outline-warning" onclick="openEditModal(${painting.paintingId}, '${painting.title}', '${painting.artistId}', '${painting.style}', '${painting.media}', '${painting.finished}')">Edit</button>
-        </div>
-    `;
-    
-    // Append the new card to the paintingCards container in artwork.php
-    paintingCards.appendChild(card); 
-}
+            // Create new card for the painting
+            const card = document.createElement('div');
+            card.className = 'card col-md-4'; // Add Bootstrap classes for styling
+            card.innerHTML = `
+                <img src="${fullImageBlob}" class="card-img-top" alt="${painting.title}">
+                <div class="card-body">
+                    <h5 class="card-title">${painting.title}</h5>
+                    <p class="card-text">Artist ID: ${painting.artistId}</p>
+                    <p class="card-text">Style: ${painting.style}</p>
+                    <p class="card-text">Media: ${painting.media}</p>
+                    <p class="card-text">Finished: ${painting.finished}</p>
+                    <button type="button" class="btn btn-outline-danger" onclick="deletePainting(${painting.paintingId})">Delete</button>
+                    <button type="button" class="btn btn-outline-warning" onclick="openEditModal(${painting.paintingId}, '${painting.title}', '${painting.artistId}', '${painting.style}', '${painting.media}', '${painting.finished}')">Edit</button>
+                </div>
+            `;
+            
+            // Append the new card to the paintingCards container in artwork.php
+            paintingCards.appendChild(card);
+        })
+        .catch(error => {
+            console.error('Error fetching painting BLOB:', error);
+        });
 
 
   

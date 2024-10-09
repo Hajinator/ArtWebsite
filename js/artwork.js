@@ -26,11 +26,16 @@ function fetchPaintings(artist = 'Show All', style = 'Show All', search = '', pa
 
             // Loop through each painting and create a Bootstrap card for it
             data.paintings.forEach(painting => {
-                const fullImageUrl = `http://localhost/ArtWebsite/${painting.image_url}`;
+
+                const fullImageBlob = painting.image_blob.startsWith('data:image/png;base64,')
+                ? painting.image_blob // Use as is
+                : `data:image/png;base64,${painting.image_blob}`; // Add prefix if not present
+            
+        
                 paintingCards.innerHTML += `
                     <div class="col-md-4">
                         <div class="card mb-3 mt-3" data-id="${painting.PaintingID}">
-                            <img src="${fullImageUrl}" class="card-img-top" alt="${painting.title}" onerror="this.onerror=null;this.src='path/to/default-image.jpg';">
+                            <img src="${fullImageBlob}" class="card-img-top" alt="${painting.title}" onerror="this.onerror=null;this.src='path/to/default-image.jpg';">
                             <div class="card-body">
                                 <h5 class="card-title"><strong>${painting.Title}</strong></h5>
                                 <p class="card-text">Artist: ${painting.artist_name}</p>
